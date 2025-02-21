@@ -8,7 +8,7 @@ import re
 def main():
     base = "https://wctang-data.github.io/bettywu-shiji"
     name = "吳淡如 - 史記"
-    rex = re.compile(r'.*(EP\d+)(.*)\.mp3')
+    rex = re.compile(r'.*》(.*)\.mp3')
 
     items = []
     for dirpath, _, filenames in os.walk("."):
@@ -19,7 +19,7 @@ def main():
             if not (m := rex.match(filename)):
                 continue
             info = pydub.utils.mediainfo(f'{filename}')
-            items.append((f'{m[1]} {m[2]}', filename, info["size"], info["duration"]))
+            items.append((f'{m[1]}', filename, info["size"], info["duration"]))
 
     RFC822 = "%a, %d %b %Y %H:%M:%S %z"
     _now = datetime.datetime.now().astimezone()
